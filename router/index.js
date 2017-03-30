@@ -17,13 +17,13 @@ router.post('/createAccount', function(req, res){
   // first should read json file as an object
   // second add new user message to the object
   // third wirite the object into json file
-  // only do this way can keep json format
-  var users = require('../resources/email.json')
+  // only do this way can keep correct json file
+  var users = require('../Resources/email.json')
   var newUsers = Object.assign({}, users, newUser)
-  var jsonPath = path.resolve(__dirname, '../resources/email.json')
+  var jsonPath = path.resolve(__dirname, '../Resources/email.json')
   fs.writeFile(jsonPath, JSON.stringify(newUsers, null, 4), (err) => {
     if (err) throw err;
-    res.send('add user success! now users are: \n' + JSON.stringify(require('../resources/email.json')))
+    res.send('add user success! now users are: \n' + JSON.stringify(require('../Resources/email.json')))
   })
 });
 
