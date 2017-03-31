@@ -8,12 +8,36 @@
   <body>
     <h1>Create Email</h1>
     <img src="/static/Admirals.PNG" alt="">
-
+  <div>
     <form name="myForm" action="/createAccount"  method="post">
       account: <input type="text" name="account">
       <!--password should use type password-->
       password: <input type = "password" name = "password">
       <input type="submit" value="Submit">
     </form>
+  </div>
+  <div>
+    <form id = 'chatform' onsubmit="mysubmit()">
+      <p>char box</p>
+      <p>send to:<input type = "text" name = "target"></p>
+      <!--<input type = "text" name = "chatBoard" style="width: 300px; height: 200px" >-->
+      <textarea name="chatbox" cols="40" rows="5"></textarea>
+      <input type = "submit" value = "submit">
+    </form>
   </body>
+
+  <script type = "text/javascript" src = "/static/jquery-2.1.4.min.js"></script>
+  <script type = "text/javascript" src = "/static/socket.io.js"></script>
+  <script type = "text/javascript">
+    $(function () {
+      var socket = io();
+
+      function mysubmit(){
+        var content = $("textarea").val();
+        var target = $("input[name = target]").val();
+        var massage = {content: content, target: target};
+        socket.emit(massage);
+      }
+
+    })
 </html>
