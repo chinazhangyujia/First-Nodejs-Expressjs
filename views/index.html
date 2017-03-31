@@ -17,11 +17,11 @@
     </form>
   </div>
   <div>
-    <form id = 'chatform' onsubmit="mysubmit()">
+    <form id = 'chatform'>
       <p>char box</p>
       <p>send to:<input type = "text" name = "target"></p>
       <!--<input type = "text" name = "chatBoard" style="width: 300px; height: 200px" >-->
-      <textarea name="chatbox" cols="40" rows="5"></textarea>
+      <textarea id="chatbox" cols="40" rows="5"></textarea>
       <input type = "submit" value = "submit">
     </form>
   </body>
@@ -30,14 +30,14 @@
   <script type = "text/javascript" src = "/static/socket.io.js"></script>
   <script type = "text/javascript">
     $(function () {
-      var socket = io();
+      var socket = io.connect();
 
-      function mysubmit(){
-        var content = $("textarea").val();
-        var target = $("input[name = target]").val();
-        var massage = {content: content, target: target};
-        socket.emit(massage);
-      }
-
+       $('#charform').submit(function (){
+         var content = $("textarea").val();
+         var target = $("input[name = target]").val();
+         var massage = {target: target, content: content};
+         socket.emit('chat', massage);
+       })
+        
     })
 </html>
